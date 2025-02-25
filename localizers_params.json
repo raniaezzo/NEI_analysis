@@ -1,0 +1,122 @@
+{
+  "protocols": {
+    "floc": {
+      "long_name": "Object Localizer",
+      "bids_task_name": "floc",
+      "stimdur_s": 6,
+      "label_description": [
+        {
+          "value": "1",
+          "shortName": "adult",
+          "longName": "adultFace"
+        },
+        {
+          "value": "2",
+          "shortName": "body",
+          "longName": "body"
+        },
+        {
+          "value": "3",
+          "shortName": "car",
+          "longName": "car"
+        },
+        {
+          "value": "4",
+          "shortName": "house",
+          "longName": "house"
+        },
+        {
+          "value": "5",
+          "shortName": "word",
+          "longName": "word"
+        }
+      ],
+      "contrasts": [
+        {
+          "name": "adult_vs_bodycarhouseword",
+          "positive": [1],
+          "negative": [2,3,4,5]
+        },
+        {
+          "name": "body_vs_adultcarhouseword",
+          "positive": [2],
+          "negative": [1,3,4,5]
+        },
+        {
+          "name": "car_vs_adultbodyhouseword",
+          "positive": [3],
+          "negative": [1,2,4,5]
+        },
+        {
+          "name": "house_vs_adultbodycarhouseword",
+          "positive": [4],
+          "negative": [1,2,3,5]
+        },
+        {
+          "name": "word_vs_adultbodycarhouse",
+          "positive": [5],
+          "negative": [1,2,3,4]
+        }
+      ]
+    },
+    "mloc": {
+      "long_name": "Motion Localizer",
+      "bids_task_name": "mot",
+      "stimdur_s": 12,
+      "label_description": [
+        {
+          "value": "1",
+          "shortName": "motC",
+          "longName": "motionCenterVF"
+        },
+        {
+          "value": "2",
+          "shortName": "motR",
+          "longName": "motionRightVF"
+        },
+        {
+          "value": "3",
+          "shortName": "motL",
+          "longName": "motionLeftVF"
+        },
+        {
+          "value": "4",
+          "shortName": "statC",
+          "longName": "staticCenterVF"
+        },
+        {
+          "value": "5",
+          "shortName": "statR",
+          "longName": "staticRightVF"
+        },
+        {
+          "value": "6",
+          "shortName": "statL",
+          "longName": "staticLeftVF"
+        }
+      ],
+      "contrasts": [
+        {
+          "name": "motC_vs_statC",
+          "positive": [1],
+          "negative": [4]
+        },
+        {
+          "name": "motR_vs_statR",
+          "positive": [2],
+          "negative": [5]
+        },
+        {
+          "name": "motL_vs_statL",
+          "positive": [3],
+          "negative": [6]
+        },
+        {
+          "name": "motALL_vs_statALL",
+          "positive": [1, 2, 3],
+          "negative": [4, 5, 6]
+        }
+      ]
+    }
+  }
+}
