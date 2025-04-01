@@ -2,7 +2,7 @@
 
 Code related to the processing of retinotopy and localizers floc and mloc in NEI dataset
 
-Before running scripts inside `NEI_analyzeLocalizers/` must change paths inside
+Before running scripts inside `NEI_analysis/` must change paths inside
 setup.sh (see below) for correct paths to dependencies and modules. Path is set to
 `/scratch/projects/corevisiongrantnei` if the `$CLUSTER` environmental
 variable is equal to `GREENE` (and thus we think we're on NYU's greene cluster);
@@ -15,18 +15,26 @@ environment) and calls the rest of the scripts to run prfvista on retinotopy dat
 To run this script on all subjects' data for both retinotopy and localizers, run sh masterScriptGLM.sh -subjects all -sessions all
 To run this script on one or more subjects/sessions passed into the function, run sh masterScriptGLM.sh -subjects <subject1name> <subject2name> -sessions <sesname1> <sesname2>
 Example subjectname is wlsubj120, and example sesname is nyu3t01 (for prf) and nyu3t02 (for localizers)
-- `run_glm_single.sh`: called by masterScriptGLM.sh and runs
-  [GLMsingle](https://github.com/cvnlab/GLMsingle) on the preprocessed
-  data (just the `floc` and `mloc` tasks), estimating the response of each voxel per trial. Uses MATLAB.
+- `run_glm_single.sh`: called by masterScriptGLM.sh and submits job to run
+  GLM on the preprocessed data (just the `floc` and `mloc` tasks), estimating the response of each voxel per trial. Uses MATLAB.
+- `run_prf.sh`: called by masterScriptGLM.sh and submits job to run retinotopy analysis
+- `run_atlasmgz.sh`: called by masterScriptGLM.sh and submits job to convert wang and glasser atlases to native surface space
 - `setup.sh`: called at the beginning of each script to set environmental
   variables to make sure we get paths correct.
 
 Sub-scripts:
 - `subroutines/`, contains helper scripts used by the main scripts:
-  - `run_glm_single.m`: actually calls GLMsingle on the data, after setting the
+  - `run_glm_single.m`: called by run_glm_single.sh, actually calls GLMsingle on the data, after setting the
     various arguments. Saves out many images for examining the quality of the
     fit. Uses MATLAB, python, and the Winawer Lab `MRI_tools` repo (see below).
-  - `writeContrastMaps.m`: generates mgz for each beta and contrasts of interest as defined in localizers_params.json. Saves out jpegs of contrasts. Uses MATLAB.
+    Details: Converts files to mgz, and runs bidsGLM(), which internally runs [GLMsingle](https://github.com/cvnlab/GLMsingle), then calls GLMdenoisePNGprocess.py to generate pngs
+    of GLMdenoise output, and writeContrastMaps() to generate images of beta contrats defined in localizers_params.json
+  - `writeContrastMaps.m`: called by run_glm_single.sh, generates mgz for each beta and contrasts of interest as defined in localizers_params.json. Saves out jpegs of contrasts. Uses MATLAB.
+  - `prepare_data_run_pRF.m`: called by run_prf.sh, averages like-runs (wedgerings, bars), and calls prfVista()
+  - `createmaps.m`: called by run_prf.sh, saves mgz files for prf estimates from results.mat file output from prfVista()
+     - `natsort.m` : dependency for createmaps.s
+  - `utils.sh`: script that loads modules, freesurfer license and conda dependencies based on whether on cluster.
+
 
 ## Dependencies:
 - matlab (version??) must be on the system path (MATLAB 9.6?)
