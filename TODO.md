@@ -1,3 +1,4 @@
+- As of now, if masterScript.sh is called with '-subjects all' flag, it will re-run even if already processed. Do we want this?
 - Create new toolboxtoolbox registry for retinotopy and include:
    vistasoft: [https://github.com/vistalab/vistasoft]
    prfVista: [https://github.com/jankurzawski/prfVista/]
