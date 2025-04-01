@@ -37,30 +37,28 @@ Sub-scripts:
 
 
 ## Dependencies:
-- matlab (version??) must be on the system path (MATLAB 9.6?)
+- matlab (tested with 2021a) must be on the system path
+- freesurfer (tested with 6.0.0)
+  - freesurfer license must be at $FREESURFER_HOME/license.txt` (where $FREESURFER_HOME is an environmental variable specifying the path to the freesurfer application) or at the location specified by the environment variable `$FREESURFER_LICENSE`
+- anaconda3
+  - setup the `winawerlab` python environment, as described
+    [here](https://wikis.nyu.edu/display/winawerlab/Python+and+Conda)
+    (you can activate it, following step 4, but you shouldn't need to if
+    you use `masterScript.sh`, because we activate it there).
 - [ToolboxToolbox](https://github.com/ToolboxHub/ToolboxToolbox), for managing
-  matlab dependencies. See the [Winawer lab
+  matlab dependencies for GLM scripts using Winawerlab_NEI.json.
+  E.g., sets up MRI_tools, GLMsingle, fracridge, jsonlab, cvncode 
+  See the [Winawer lab
   wiki](https://wikis.nyu.edu/display/winawerlab/ToolboxToolbox) for info on how
   to set it up.
   - [Winawer lab Toolbox
     Registry](https://github.com/WinawerLab/ToolboxRegistry).
-- freesurfer license must be at $FREESURFER_HOME/license.txt` (where $FREESURFER_HOME is an environmental variable specifying the path to the freesurfer application) or at the location specified by the environmental variable `$FREESURFER_LICENSE`
-- setup the `winawerlab` python environment, as described
-  [here](https://wikis.nyu.edu/display/winawerlab/Python+and+Conda)
-  (you can activate it, following step 4, but you shouldn't need to if
-  you use `masterScript.sh`, because we activate it there).
 - download the Winawer Lab
-  [MRI_tools](https://github.com/WinawerLab/MRI_tools) repo and make
-  sure that its `BIDS` folder is on your path. One way to do this,
-  from the command line, is (note this will only last for this
-  session, if you want to permanently add that folder to your path,
-  add the last line to your `~/.bashrc` file):
+  [atlasmgz](https://github.com/WinawerLab/atlasmgz)
+  [prfVista](https://github.com/jankurzawski/prfVista)
+  [vistasoft](https://github.com/vistalab/vistasoft) 
+  repos and make sure that they are in `NEI_analysis/`. They will be added to your path within the scripts.
 
-```
-# download the repo
-git clone git@github.com:WinawerLab/MRI_tools.git ~/Documents/MRI_tools
-# add it to your path
-export PATH="$HOME/Documents/MRI_tools/BIDS/:$PATH"
 ```
 
 - if you're running this on your local machine, then you should be good to go.
@@ -74,6 +72,4 @@ export PATH="$HOME/Documents/MRI_tools/BIDS/:$PATH"
      packages, you'll have to change this more.
   3. `setup.sh`: check that the path `/scratch/$(whoami)` exists and that you
      have write access (and your cluster admin is okay with placing a lot of
-     large files here). If not, change `$SAMPLE_DATA_DIR` to some other path (in
-     the first if block at the top of the file) or pass a path to the scripts
-     when calling them..
+     large files here).
