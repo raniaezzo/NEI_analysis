@@ -32,7 +32,7 @@ Sub-scripts:
   - `writeContrastMaps.m`: called by run_glm_single.sh, generates mgz for each beta and contrasts of interest as defined in localizers_params.json. Saves out jpegs of contrasts. Uses MATLAB.
   - `prepare_data_run_pRF.m`: called by run_prf.sh, averages like-runs (wedgerings, bars), and calls prfVista()
   - `createmaps.m`: called by run_prf.sh, saves mgz files for prf estimates from results.mat file output from prfVista()
-     - `natsort.m` : dependency for createmaps.s
+     - `natsort.m` : dependency for createmaps.m
   - `utils.sh`: script that loads modules, freesurfer license and conda dependencies based on whether on cluster.
 
 
@@ -40,22 +40,22 @@ Sub-scripts:
 - matlab (tested with 2021a) must be on the system path
 - freesurfer (tested with 6.0.0)
   - freesurfer license must be at $FREESURFER_HOME/license.txt` (where $FREESURFER_HOME is an environmental variable specifying the path to the freesurfer application) or at the location specified by the environment variable `$FREESURFER_LICENSE`
-- anaconda3
+- anaconda / miniconda (tested with anaconda3)
   - setup the `winawerlab` python environment, as described
     [here](https://wikis.nyu.edu/display/winawerlab/Python+and+Conda)
-    (you can activate it, following step 4, but you shouldn't need to if
+    You can set up in /scratch/$USER/environments/winawerlab
+    (you can activate it using conda activate <path>, but you shouldn't need to if
     you use `masterScript.sh`, because we activate it there).
 - [ToolboxToolbox](https://github.com/ToolboxHub/ToolboxToolbox), for managing
-  matlab dependencies for GLM scripts using Winawerlab_NEI.json.
+  matlab dependencies for GLM scripts using Winawerlab_NEI.json available on 
+  [Winawer lab Toolbox Registry](https://github.com/WinawerLab/ToolboxRegistry).
   E.g., sets up MRI_tools, GLMsingle, fracridge, jsonlab, cvncode 
   See the [Winawer lab
   wiki](https://wikis.nyu.edu/display/winawerlab/ToolboxToolbox) for info on how
   to set it up.
-  - [Winawer lab Toolbox
-    Registry](https://github.com/WinawerLab/ToolboxRegistry).
 - download the Winawer Lab
-  [atlasmgz](https://github.com/WinawerLab/atlasmgz)
-  [prfVista](https://github.com/jankurzawski/prfVista)
+  [atlasmgz](https://github.com/WinawerLab/atlasmgz), 
+  [prfVista](https://github.com/jankurzawski/prfVista), 
   [vistasoft](https://github.com/vistalab/vistasoft) 
   repos and make sure that they are in `NEI_analysis/`. They will be added to your path within the scripts.
 
