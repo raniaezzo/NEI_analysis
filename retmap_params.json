@@ -1,0 +1,17 @@
+{
+  "protocols": {
+    "bar": {
+      "long_name": "Translating bar apertures",
+      "bids_task_names": ["bar1", "bar2", "bar3"]
+    },
+    "wedgering": {
+      "long_name": "Rotating, expanding, contracting wedge/ring apertures",
+      "bids_task_names": ["wedgering1", "wedgering2", "wedgering3"]
+    }
+  },
+  "parameters": {
+    "tr": 1,
+    "stimradius": 12.2
+  }
+}
+

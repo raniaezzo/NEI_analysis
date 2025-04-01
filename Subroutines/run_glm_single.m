@@ -61,6 +61,11 @@ glmOptsPath       = [];
 tr                = [];
 disp('Done setting params in run_glm_single.m')
 
+% remove conflicting file with duplicate name from path
+conflictingPaths = which('-all', 'flatten');
+index = find(contains(conflictingPaths, 'GLMsingle')); % identify the one of interest
+addpath(fileparts(conflictingPaths{index}), '-begin');
+
 % run the GLM
 bidsGLM(projectDir, subject, session, tasks, runnums, ...
     dataFolder, dataStr, designFolder, stimdur, modelType, glmOptsPath, tr)
@@ -73,6 +78,6 @@ figurepth  = fullfile(projectDir, 'derivatives', 'GLMsingle', modelType, ...
 system(sprintf('python %s %s', pngprocess, figurepth));
 
 % To generate beta and contrast surface mgzs and pngs
-%writeContrastMaps()
-%disp('Done writing contrast PNGs in run_glm_single.m')
+writeContrastMaps()
+disp('Done writing contrast PNGs in run_glm_single.m')
 

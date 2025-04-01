@@ -1,21 +1,21 @@
-# NEI_fitGLM
+# NEI_analyzeLocalizers
 
-Code related to the processing of localizers floc and mloc in NEI dataset
+Code related to the processing of retinotopy and localizers floc and mloc in NEI dataset
 
-You can set the directory to put all data and analyses in by passing a path to
-any of the main scripts. Alternatively, if they're called with no arguments, the
-data directory is set to `NEI_analyzeLocalizers/` within this directory or
+Before running scripts inside `NEI_analyzeLocalizers/` must change paths inside
+setup.sh (see below) for correct paths to dependencies and modules. Path is set to
 `/scratch/projects/corevisiongrantnei` if the `$CLUSTER` environmental
 variable is equal to `GREENE` (and thus we think we're on NYU's greene cluster);
 ideally this would be a general solution for different compute clusters, but we
 couldn't come up with one.
 
 Main scripts:
-- `masterScriptGLM.sh`: checks for dependencies (matlab, freesurfer license, python
-environment) and calls the rest of the scripts in this section, in order. Takes
-a very long time, so you may want to call each section separately (which will
-also ease debugging).
-- `run_glm_single.sh`: runs
+- `masterScript.sh`: checks for dependencies (matlab, freesurfer license, python
+environment) and calls the rest of the scripts to run prfvista on retinotopy data and GLMsingle on the localizer data (floc and mloc). 
+To run this script on all subjects' data for both retinotopy and localizers, run sh masterScriptGLM.sh -subjects all -sessions all
+To run this script on one or more subjects/sessions passed into the function, run sh masterScriptGLM.sh -subjects <subject1name> <subject2name> -sessions <sesname1> <sesname2>
+Example subjectname is wlsubj120, and example sesname is nyu3t01 (for prf) and nyu3t02 (for localizers)
+- `run_glm_single.sh`: called by masterScriptGLM.sh and runs
   [GLMsingle](https://github.com/cvnlab/GLMsingle) on the preprocessed
   data (just the `floc` and `mloc` tasks), estimating the response of each voxel per trial. Uses MATLAB.
 - `setup.sh`: called at the beginning of each script to set environmental
