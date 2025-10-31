@@ -1,8 +1,12 @@
 #!/bin/bash
 
-## The following script runs ses-nyu3t01 retinotopy, and ses-nyu3t02 floc/mloc GLMs using GLMsingle on the HPC cluster
-## Usage: sh masterScript.sh -subjects wlsubj120 wlsubj121 -sessions nyu3t01 nyu3t02
-## or to run all sessions for all subjects:  sh masterScript.sh -subjects all -sessions all
+## The following script runs 
+##      ses-nyu3t01 retinotopy using prfVista
+##      ses-nyu3t02 floc/mloc GLMs using GLMsingle 
+## on the HPC cluster
+##
+## Usage: sh masterScript_for_GLMs_and_PRFs.sh -subjects wlsubj120 wlsubj121 -sessions nyu3t01 nyu3t02
+## or to run all sessions for all subjects:  sh masterScript_for_GLMs_and_PRFs.sh -subjects all -sessions all
 
 # Initialize arrays
 subjects=()
@@ -34,10 +38,10 @@ while [[ $# -gt 0 ]]; do
 done
 
 # Locate the NEI_BIDS directory
-NEI_BIDS_DIR=$(find ../.. -maxdepth 2 -type d -name "NEI_BIDS" -print -quit)
+NEI_BIDS_DIR=$(find ../.. -maxdepth 2 -type d -name "NEI_DATA" -print -quit)
 
 if [ -z "$NEI_BIDS_DIR" ]; then
-    echo "Error: NEI_BIDS directory not found. Ensure this script is within 2 parent directories from the NEI_BIDS folder."
+    echo "Error: NEI_DATA directory not found. Ensure this script is within 2 parent directories from the NEI_BIDS folder."
     exit 1
 fi
 
@@ -82,11 +86,10 @@ for ses in "${sessions[@]}"; do
                     continue
                 fi
 
-                # Uncomment these lines for actual job submission
                 var1="$NEI_BIDS_DIR/derivatives/logs/sub-$sub/%x-$session-%a.err"
                 var2="$NEI_BIDS_DIR/derivatives/logs/sub-$sub/%x-$session-%a.out"
-                #job_id=$(sbatch --job-name="$sub-$protocol" --error="$var1" --output="$var2" run_glm_single.sh "$protocol" "$sub" "$session" | awk '{print $NF}')
-                #echo "Submitted $sub $protocol as batch job with Job ID: $job_id"
+                job_id=$(sbatch --job-name="$sub-$protocol" --error="$var1" --output="$var2" run_glm_single.sh "$protocol" "$sub" "$session" | awk '{print $NF}')
+                echo "Submitted $sub $protocol as batch job with Job ID: $job_id"
             done
 
         elif [ "$ses" == "nyu3t01" ]; then  # retinotopy is in ses1
@@ -103,7 +106,6 @@ for ses in "${sessions[@]}"; do
                 continue
             fi
 
-            # Uncomment these lines for actual job submission
             var1="$NEI_BIDS_DIR/derivatives/logs/sub-$sub/%x-$ses-%a.err"
             var2="$NEI_BIDS_DIR/derivatives/logs/sub-$sub/%x-$ses-%a.out"
             job_id=$(sbatch --job-name="$sub-retinotopy" --error="$var1" --output="$var2" run_prf.sh "$sub" "$ses" | awk '{print $NF}')

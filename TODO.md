@@ -9,3 +9,6 @@
 - Remove git folder in Code folder that are not necessary b/c called with tbUse: fracridge, GLMdenoise, GLMsingle
 - Move code from NEI_analysis/ into Code/ folder
 - Incorporate fmriprep into masterScript - all jobs should depend on its completion.
+- createmaps.m for the retinotopy saves polar angle in 2 ways angle.mgz (0 to pi for upperVF and 0 to -pi for lowerVF) and angle_adj.mgz (0 to -180 for leftVF and 0 to 180 for rightVF). Should we save from 0-360 as well?
+- Transfer git repo to Winawerlab
+- sub-wlsubj157: fMRIprep seems to have only been run on 1 session instead of 1-2

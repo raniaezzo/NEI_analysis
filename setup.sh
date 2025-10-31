@@ -35,7 +35,7 @@ fi
 
 
 # Path to BIDS directory
-BIDS_DIR=$PROJECT_DIR/NEI_BIDS
+BIDS_DIR=$PROJECT_DIR/NEI_DATA
 # create the necessary directories, just to be safe
 mkdir -p $PROJECT_DIR 
 mkdir -p $BIDS_DIR

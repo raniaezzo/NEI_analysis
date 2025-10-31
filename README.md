@@ -10,7 +10,7 @@ ideally this would be a general solution for different compute clusters, but we
 couldn't come up with one.
 
 Main scripts:
-- `masterScript.sh`: checks for dependencies (matlab, freesurfer license, python
+- `masterScript_for_GLMs_and_PRFs.sh`: checks for dependencies (matlab, freesurfer license, python
 environment) and calls the rest of the scripts to run prfvista on retinotopy data and GLMsingle on the localizer data (floc and mloc). 
 To run this script on all subjects' data for both retinotopy and localizers, run sh masterScriptGLM.sh -subjects all -sessions all
 To run this script on one or more subjects/sessions passed into the function, run sh masterScriptGLM.sh -subjects <subject1name> <subject2name> -sessions <sesname1> <sesname2>
